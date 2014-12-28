@@ -1,0 +1,21 @@
+{
+  "name": "panda-config",
+  "version": "1.0.0-alpha-01",
+  "description": "Read/write configuration files",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "coffee --nodejs --harmony test/index.coffee"
+  },
+  "keywords": [
+    "configuration"
+  ],
+  "author": "Dan Yoder",
+  "license": "MIT",
+  "dependencies": {
+    "c50n": "^0.7.2",
+    "when": "^3.6.4"
+  }
+}
