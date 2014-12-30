@@ -37,7 +37,8 @@ class Configuration
       for directory in @paths
         _path = resolve join directory, filename
         if path == _path
-          return
+          @path = path
+          return @
       throw new Error "Invalid path provided"
     else
       [directory] = @paths
