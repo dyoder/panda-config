@@ -1,14 +1,30 @@
-assert = require = "assert"
+assert = require "assert"
 {call} = require "when/generator"
 Configurator = require "../src/index.coffee"
 
 call ->
 
-  configurator = Configurator.make paths: [ "." ]
+  try
 
-  configuration = yield configurator.load "settings.cson"
+    configurator = Configurator.make
+      paths: [ "./test" ]
+      extension: ".yaml"
 
-  assert.equals configuration.foo.bar, "hello"
+    configuration = configurator.make name: "settings"
 
-  configuration.foo.bar = "goodbye"
-  configurator.save configuration
+    yield configuration.load()
+
+    assert.equal configuration.data.foo.bar, "Hello"
+
+    configuration.data.foo.bar = "Goodbye"
+    yield configuration.save()
+
+    configuration.load()
+
+    assert.equal configuration.data.foo.bar, "Goodbye"
+
+    configuration.data.foo.bar = "Hello"
+    configuration.save()
+
+  catch error
+    console.error error
