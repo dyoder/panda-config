@@ -1,0 +1,13 @@
+{ 
+  "foo": {
+    "bar": "Hello"
+  },
+  "colors": ["white", "blue", "orange"]
+  "date_toJSON_timestamp": "2012-04-23T18:25:43.511Z",
+  "nest": {
+      "deepest_nest": "smurf"
+    }
+  },
+  "quote_escape": backslash quote\"",
+  "backslash_escape": "backslash backslash \\"  
+}

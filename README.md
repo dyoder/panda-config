@@ -69,3 +69,8 @@ This is useful for creating application-specific prefixes when writing to a dire
 `save`: Attempts to save a configuration. Throws an exception if the configuration either has no associated path (because it was never loaded) or no data (and thus nothing to save).
 
 `prepare(path=null)`: Prepares a configuration for calling `save` by setting the path. An exception will be thrown if the path can't be validated against the configurator and name. If no path is provided, a default will be generated based on the configurator, using the first element in `paths`.
+
+
+### Tests
+
+Run any test file in tests/ with `coffee --nodejs --harmony path/to/file`

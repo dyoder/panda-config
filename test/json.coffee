@@ -7,7 +7,7 @@ call ->
   try
 
     configurator = Configurator.make
-      paths: [ "./test" ]
+      paths: [ "./test/config" ]
       extension: ".json"
 
     configuration = configurator.make name: "settings"

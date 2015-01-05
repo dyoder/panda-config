@@ -7,7 +7,7 @@ call ->
   try
 
     configurator = Configurator.make
-      paths: [ "./test" ]
+      paths: [ "./test/config" ]
       extension: ".yaml"
 
     configuration = configurator.make name: "settings"
