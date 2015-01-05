@@ -1,5 +1,4 @@
 assert = require "assert"
-_ = require "underscore"
 {call} = require "when/generator"
 Configurator = require "../src/index.coffee"
 
