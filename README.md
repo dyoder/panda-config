@@ -19,7 +19,7 @@ Configurator = require "panda-config"
 configurator = Configurator.make
   prefix: "."
   paths: [ process.env.HOME ]
-configuration = configuration.make "foo"
+configuration = configurator.make "foo"
 yield configuration.load()
 console.log configuration.data.messages.welcome
 ```
