@@ -5,7 +5,6 @@ Configurator = require "../src/index.coffee"
 call ->
 
   try
-
     configurator = Configurator.make
       paths: [ "./test/config" ]
       extension: ".yaml"
@@ -17,6 +16,7 @@ call ->
     assert.equal configuration.data.foo.bar, "Hello"
 
     configuration.data.foo.bar = "Goodbye"
+
     yield configuration.save()
 
     configuration.load()
@@ -27,4 +27,12 @@ call ->
     configuration.save()
 
   catch error
+    assert.fail error, null, "error during yaml.coffee"
     console.error error
+
+
+  try
+
+
+  catch
+
