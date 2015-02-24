@@ -1,13 +1,14 @@
 {
   "name": "panda-config",
-  "version": "1.0.0-alpha-01",
+  "version": "1.0.0-alpha-02",
   "description": "Read/write configuration files",
   "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "coffee --nodejs --harmony test/index.coffee"
+    "test": "coffee --nodejs --harmony test/index.coffee",
+    "prepublish": "coffee --nodejs --harmony -o lib/ -c src/*.coffee"
   },
   "keywords": [
     "configuration"
