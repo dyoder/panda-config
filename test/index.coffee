@@ -1,30 +1,30 @@
 assert = require "assert"
-{call} = require "when/generator"
-Configurator = require "../src/index.coffee"
+Amen = require "amen"
+{create, load, save} = require "../src/index.coffee"
+{call} = require "fairmont"
 
-call ->
+Amen.describe "Simple YAML configuration file", (context) ->
 
-  try
+  context.test "create", ->
 
-    configurator = Configurator.make
+    configuration = create
       paths: [ "./test" ]
       extension: ".yaml"
+      format: "yaml"
+      name: "settings"
 
-    configuration = configurator.make name: "settings"
+    context.test "load", ->
 
-    yield configuration.load()
+      data = yield load configuration
+      assert.equal data.foo.bar, "Hello"
 
-    assert.equal configuration.data.foo.bar, "Hello"
+      context.test "save", ->
 
-    configuration.data.foo.bar = "Goodbye"
-    yield configuration.save()
+        data.foo.bar = "Goodbye"
+        yield save configuration, data
 
-    configuration.load()
+        data = yield load configuration
+        assert.equal data.foo.bar, "Goodbye"
 
-    assert.equal configuration.data.foo.bar, "Goodbye"
-
-    configuration.data.foo.bar = "Hello"
-    configuration.save()
-
-  catch error
-    console.error error
+        data.foo.bar = "Hello"
+        yield save configuration, data

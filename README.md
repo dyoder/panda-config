@@ -3,34 +3,33 @@
 Panda Config helps you manage config files.
 
 ```coffee
-Configurator = require "panda-config"
-configurator = Configurator.make extension: "yml"
-configuration = configurator.make "settings"
-yield configuration.load()
-console.log configuration.data.messages.welcome
+Configuration = require "panda-config"
+configuration = Configurator.create
+  name: "settings"
+  extension: "yml"
+  format: "yaml"
+options = yield Configuration.load configuration
+assert options.messages.welcome == "Hello, World!"
 ```
-
-The two-step to create a configurator allows you to manage many different types of configurations from within the same process. The basic idea is to allow you to encapsulate various styles of storing configurations, exporting either a configurator or a configuration instance.
 
 Suppose you want a dot-file in your users' home directory:
 
 ```coffee
-Configurator = require "panda-config"
-configurator = Configurator.make
+Configuration = require "panda-config"
+configuration = Configuration.create
+  name: "foo"
   prefix: "."
   paths: [ process.env.HOME ]
-configuration = configuration.make "foo"
-yield configuration.load()
-console.log configuration.data.messages.welcome
+  format: "yaml"
+options = yield load configuration
 ```
 
 You can update configurations, too, making it easy to write command-line tools that update a configuration.
 
 ```
-configuration.data.email = "johndoe@acme.org"
-configuration.save()
+options.email = "johndoe@acme.org"
+save configuration, options
 ```
-
 
 ## Status
 
@@ -38,11 +37,11 @@ This is an alpha release, meaning it is not recommended for production use.
 
 ## API
 
-### Configurator
+### Configuration
 
-#### Class Methods
+#### `create(options)`
 
-`make(options)`: Create a new configurator object. Valid options:
+Create a new configurator object. Valid options:
 
 * `paths`: the list of paths to search when loading a configuration. Defaults to `["."]`.
 
@@ -54,18 +53,10 @@ This is useful for creating application-specific prefixes when writing to a dire
 
 * `format`: the desired file-format. The two currently supported formats are `json` and `yaml`.
 
-#### Instance Methods
+#### `load(configuration)`
 
-`make(options)`: Creates a new configuration object based on the configurator. Valid options:
+Attempts to load and parse the configuration from a file.
 
-* `name`: the name of the configuration. This will be combined with the configurator options to construct a pathname.
+#### `save(configuration)`
 
-### Configuration
-
-#### Instance Methods
-
-`load`: Attempts to load and parse the configuration from a file. The pathname for the file is based on the configurator and the name of the configuration.
-
-`save`: Attempts to save a configuration. Throws an exception if the configuration either has no associated path (because it was never loaded) or no data (and thus nothing to save).
-
-`prepare(path=null)`: Prepares a configuration for calling `save` by setting the path. An exception will be thrown if the path can't be validated against the configurator and name. If no path is provided, a default will be generated based on the configurator, using the first element in `paths`.
+Attempts to save a configuration.
